@@ -55,21 +55,21 @@ void TIMER1_VoidInit(void)
 	SET_BIT(TCCR1B, 1);
 
     // Select overflow mode
-    CLR_BIT(TCCR1A, 0);
-    CLR_BIT(TCCR1A, 1);
-    CLR_BIT(TCCR1B, 3);
-    CLR_BIT(TCCR1B, 4);
+    CLR_BIT(TCCR1A, WGM10);
+    CLR_BIT(TCCR1A, WGM11);
+    CLR_BIT(TCCR1B, WGM12);
+    CLR_BIT(TCCR1B, WGM13);
 
     // Set prescaler to 256
-    CLR_BIT(TCCR1B, 0);
-    CLR_BIT(TCCR1B, 1);
-    SET_BIT(TCCR1B, 2);
+    CLR_BIT(TCCR1B, CS10);
+    CLR_BIT(TCCR1B, CS11);
+    SET_BIT(TCCR1B, CS12);
 
     // Enable OV interrupt
-    SET_BIT(TIMSK, 2);
+    SET_BIT(TIMSK, TOIE1);
 
     // Enable ICU interrupt
-    SET_BIT(TIMSK, 5);
+    SET_BIT(TIMSK, TICIE1);
 
     // Enable GIE
     SET_BIT(SREG, 7);

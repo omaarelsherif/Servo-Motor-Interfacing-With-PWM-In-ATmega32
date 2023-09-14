@@ -21,4 +21,19 @@
 // Macros to define TIMSK register pins
 #define TOIE0    0
 
+// Macros to define TCCR1A register pins
+#define WGM10    0
+#define WGM11    1
+
+// Macros to define TCCR1B register pins
+#define CS10     0
+#define CS11     1
+#define CS12     2
+#define WGM12    3
+#define WGM13    4
+
+// Macros to define TIMSK register pins
+#define TOIE1      2
+#define TICIE1     5
+
 #endif
