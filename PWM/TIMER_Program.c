@@ -13,8 +13,14 @@
 #include "TIMER_Config.h"
 #include "DIO_Interface.h"
 
-// Function to initialize the ADC
-void TIMER_VoidInit(void)
+// Global variables
+u8 flag = 0;
+u16 OV_Counter = 0;
+u16 Ton = 0;
+u16 Ttotal = 0;
+
+// Function to initialize Timer0
+void TIMER0_VoidInit(void)
 {
     // Select fast pwm mode
     SET_BIT(TCCR0, WGM00);
@@ -39,13 +45,77 @@ void TIMER_VoidInit(void)
     SET_BIT(SREG, 7);
 }
 
+// Function to initialize Timer1
+void TIMER1_VoidInit(void)
+{
+    // Enable input capture noice canceler
+    CLR_BIT(TCCR1B, 7);
+
+    // Set raising edge
+	SET_BIT(TCCR1B, 1);
+
+    // Select overflow mode
+    CLR_BIT(TCCR1A, 0);
+    CLR_BIT(TCCR1A, 1);
+    CLR_BIT(TCCR1B, 3);
+    CLR_BIT(TCCR1B, 4);
+
+    // Set prescaler to 256
+    CLR_BIT(TCCR1B, 0);
+    CLR_BIT(TCCR1B, 1);
+    SET_BIT(TCCR1B, 2);
+
+    // Enable OV interrupt
+    SET_BIT(TIMSK, 2);
+
+    // Enable ICU interrupt
+    SET_BIT(TIMSK, 5);
+
+    // Enable GIE
+    SET_BIT(SREG, 7);
+}
+
 // Function to set pwm duty cucle
-void TIMER_VoidPWMDutyCycle(u8 Duty)
+void TIMER0_VoidPWMDutyCycle(u8 Duty)
 {
 	OCR0 = Duty;
 }
 
-// ISR
+// ICU ISR
+void __vector_6(void)
+{
+    if(flag == 0)
+    {
+        TCNT1 = 0;
+        OV_Counter = 0;
+        // Set fallinng edge
+	    CLR_BIT(TCCR1B, 6);
+        flag = 1;
+    }
+    // Calcaulate T ON
+    else if(flag == 1)
+    {
+        Ton = ICR1 + (OV_Counter * 65535);
+        // Set raising edge
+	    SET_BIT(TCCR1B, 1);
+        flag = 2;
+    }
+    // Calcaulate T total
+    else if(flag == 2)
+    {
+        Ttotal = ICR1 + (OV_Counter * 65535);
+        flag = 3;
+    }
+}
+
+// Timer1 OV ISR
+void __vector_9(void)
+{
+    // Increase overflow counter
+    OV_Counter++;
+}
+
+// Timer0 ISR
 void __vector_11(void)
 {
     static u16 counter = 0;

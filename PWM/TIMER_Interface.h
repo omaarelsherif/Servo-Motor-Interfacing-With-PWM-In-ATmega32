@@ -12,8 +12,11 @@
 #include "STD_TYPES.h"
 
 // Function prototypes
-void TIMER_VoidInit(void);
-void TIMER_VoidPWMDutyCycle(u8 Duty);
+void TIMER0_VoidInit(void);
+void TIMER1_VoidInit(void);
+void TIMER0_VoidPWMDutyCycle(u8 Duty);
+void __vector_6(void) __attribute__((signal));
+void __vector_9(void) __attribute__((signal));
 void __vector_11(void) __attribute__((signal));
 
 #endif

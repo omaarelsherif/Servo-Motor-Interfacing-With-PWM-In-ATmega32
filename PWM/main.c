@@ -16,17 +16,17 @@ void main(void)
 	DIO_VoidSetPinDirection(1, 3, 1);
 
 	// Initialzie the Timer
-	TIMER_VoidInit();
+	TIMER0_VoidInit();
 
 	// Program loop
 	while(1)
 	{
 		// Set various values of PWM duty cycles
-		TIMER_VoidPWMDutyCycle(0);
+		TIMER0_VoidPWMDutyCycle(0);
 		_delay_ms(1000);
-		TIMER_VoidPWMDutyCycle(52);
+		TIMER0_VoidPWMDutyCycle(52);
 		_delay_ms(1000);
-		TIMER_VoidPWMDutyCycle(127);
+		TIMER0_VoidPWMDutyCycle(127);
 		_delay_ms(1000);
 	}
 }
