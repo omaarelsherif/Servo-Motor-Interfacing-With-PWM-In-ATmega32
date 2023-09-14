@@ -1,5 +1,5 @@
 <!-- PROJECT TITLE -->
-<h1 align="center">"Servo Motor Interfacing With PWM In ATmega32"</h1>
+<h1 align="center">Servo Motor Interfacing With PWM In ATmega32</h1>
 
 <!-- OVERVIEW -->
 ## <br>**➲ Overview**
