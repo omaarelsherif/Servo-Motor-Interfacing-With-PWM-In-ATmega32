@@ -4,16 +4,17 @@
  */
 
 // Include drivers
-#include "STD_TYPES.h"
-#include "DIO_Interface.h"
-#include "TIMER_Interface.h"
+#include "LIB/STD_TYPES.h"
+#include "MCAL/DIO_Config.h"
+#include "MCAL/DIO_Interface.h"
+#include "MCAL/TIMER_Interface.h"
 #include <avr/delay.h>
 
 // Main function
 void main(void)
 {
-	// Set PWM OCO0 pin direction a soutput
-	DIO_VoidSetPinDirection(1, 3, 1);
+	// Set PWM OCO0 pin direction as output
+	DIO_VoidSetPinDirection(PORT_B, PIN3, OUTPUT);
 
 	// Initialzie the Timer
 	TIMER0_VoidInit();

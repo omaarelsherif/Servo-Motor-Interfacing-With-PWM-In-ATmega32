@@ -9,6 +9,9 @@
 #ifndef TIMER_CONFIG_H
 #define TIMER_CONFIG_H
 
+// Include DIO configurations
+#include "DIO_Config.h"
+
 // Macros to define TCCR0 register pins
 #define CS00    0
 #define CS01    1

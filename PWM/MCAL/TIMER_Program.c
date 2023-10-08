@@ -7,11 +7,11 @@
 */
 
 // Include header files
-#include "STD_TYPES.h"
-#include "BIT_MATH.h"
+#include "../LIB/STD_TYPES.h"
+#include "../LIB/BIT_MATH.h"
+#include "DIO_Interface.h"
 #include "TIMER_Register.h"
 #include "TIMER_Config.h"
-#include "DIO_Interface.h"
 
 // Global variables
 u8 flag = 0;
@@ -42,17 +42,17 @@ void TIMER0_VoidInit(void)
     SET_BIT(TIMSK, TOIE0);
 
     // Enable GIE
-    SET_BIT(SREG, 7);
+    SET_BIT(SREG, PIN7);
 }
 
 // Function to initialize Timer1
 void TIMER1_VoidInit(void)
 {
     // Enable input capture noice canceler
-    CLR_BIT(TCCR1B, 7);
+    CLR_BIT(TCCR1B, PIN7);
 
     // Set raising edge
-	SET_BIT(TCCR1B, 1);
+	SET_BIT(TCCR1B, PIN1);
 
     // Select overflow mode
     CLR_BIT(TCCR1A, WGM10);
@@ -72,7 +72,7 @@ void TIMER1_VoidInit(void)
     SET_BIT(TIMSK, TICIE1);
 
     // Enable GIE
-    SET_BIT(SREG, 7);
+    SET_BIT(SREG, PIN7);
 }
 
 // Function to set pwm duty cucle
@@ -89,7 +89,7 @@ void __vector_6(void)
         TCNT1 = 0;
         OV_Counter = 0;
         // Set fallinng edge
-	    CLR_BIT(TCCR1B, 6);
+	    CLR_BIT(TCCR1B, PIN6);
         flag = 1;
     }
     // Calcaulate T ON
@@ -123,7 +123,7 @@ void __vector_11(void)
     if(counter == 123)
     {
 		TCNT0 = 238;
-		DIO_VoidTogglePin(0, 0);
+		DIO_VoidTogglePin(PORT_A, PIN0);
 		counter = 0;
     }
 }
