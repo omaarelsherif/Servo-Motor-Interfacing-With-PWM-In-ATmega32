@@ -9,8 +9,6 @@
 #ifndef TIMER_REGISTER_H
 #define TIMER_REGISTER_H
 
-#include "../LIB/STD_TYPES.h"
-
 // Macros to define registers addreses for timer0
 #define TCCR0     *((volatile u8 *) 0x53)
 #define TCNT0     *((volatile u8 *) 0x52)

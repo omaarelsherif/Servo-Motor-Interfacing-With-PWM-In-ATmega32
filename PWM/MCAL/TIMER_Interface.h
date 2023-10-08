@@ -9,8 +9,6 @@
 #ifndef TIMER_INTERFACE_H
 #define TIMER_INTERFACE_H
 
-#include "../LIB/STD_TYPES.h"
-
 // Function prototypes
 void TIMER0_VoidInit(void);
 void TIMER1_VoidInit(void);
